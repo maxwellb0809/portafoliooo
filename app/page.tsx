@@ -1,0 +1,42 @@
+'use client'
+
+import { useState } from 'react'
+import Image from 'next/image'
+import { ArrowDownRight, ArrowUpRight, Check, Cloud, Code2, Database, ExternalLink, GitBranch, Link, Mail, Menu, MessageCircle, Send, Server, Terminal, X } from 'lucide-react'
+
+const navItems = [['Home', 'home'], ['Projects', 'projects'], ['Stack', 'skills'], ['Education', 'education'], ['Contact', 'contact']]
+const cvUrl = 'https://drive.google.com/file/d/1r_fGwg094h2UmB6-baPIa4r3O9pmzq-E/view?usp=drivesdk'
+const projects = [
+  { title: 'Platinum Gym Web App', eyebrow: 'Fitness management / 2025', description: 'Full-stack fitness management system featuring custom user dashboards, authentication, and database integration.', image: '/images/platinum-gym-showcase.png', href: 'https://platinum-gym-web-neld.vercel.app', tags: ['Next.js', 'React', 'Express.js', 'Tailwind CSS', 'MySQL', 'Vercel'], icon: Code2 },
+  { title: 'Cloud Health Monitor', eyebrow: 'Serverless observability / 2025', description: 'A real-time API status monitor backed by Azure Functions and an automated GitHub-Vercel CI/CD pipeline.', image: '/images/cloud-health-monitor.png', href: 'https://monitor-python-rnft.vercel.app', tags: ['Python', 'Azure Functions', 'REST API', 'HTML5', 'Vercel', 'CI/CD'], icon: Cloud },
+]
+const skills = [
+  { title: 'Frontend', icon: Code2, items: ['Next.js', 'React', 'JavaScript ES6+', 'Tailwind CSS'] },
+  { title: 'Backend', icon: Server, items: ['Node.js', 'Express.js', 'Python', 'REST APIs'] },
+  { title: 'Cloud & Serverless', icon: Cloud, items: ['Azure Functions', 'Serverless architecture', 'API integrations'] },
+  { title: 'Databases', icon: Database, items: ['MySQL', 'SQL', 'Data modeling'] },
+  { title: 'DevOps & Tools', icon: Terminal, items: ['Git', 'GitHub', 'Vercel', 'CI/CD pipelines'] },
+]
+
+function AmbientBackground() {
+  return <div className="ambient-background" aria-hidden="true"><div className="ambient-glow glow-cyan" /><div className="ambient-glow glow-violet" /><div className="cloud-path path-one" /><div className="cloud-path path-two" /><div className="star-field">{Array.from({ length: 34 }, (_, i) => <i key={i} style={{ '--i': i } as React.CSSProperties} />)}</div></div>
+}
+
+export default function Page() {
+  const [menuOpen, setMenuOpen] = useState(false)
+  return <main id="home" className="portfolio-shell">
+    <AmbientBackground />
+    <header className="site-nav section-pad"><a href="#home" className="brand" onClick={() => setMenuOpen(false)}><span>MP</span><strong>MAX ELIAS PEREZ GERMAN</strong></a><button className="menu-toggle" aria-label={menuOpen ? 'Close menu' : 'Open menu'} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</button><nav className={`nav-links ${menuOpen ? 'is-open' : ''}`} aria-label="Primary navigation">{navItems.map(([label, id]) => <a key={id} href={`#${id}`} onClick={() => setMenuOpen(false)}>{label}</a>)}<a className="nav-cv" href={cvUrl} target="_blank" rel="noopener noreferrer">See CV <ArrowUpRight size={14} /></a></nav></header>
+
+    <section className="hero section-pad"><div className="hero-copy"><p className="kicker"><span className="status-dot" /> Software engineering student</p><h1>Software Engineering Student <em>&</em> Full-Stack Web Developer</h1><p className="hero-lede">Building scalable web apps, serverless cloud solutions, and cozy digital experiences.</p><div className="badge-row"><span>Full-Stack Web</span><span>Cloud &amp; Serverless</span><span>Bilingual ES / EN</span></div><div className="hero-actions"><a className="button button-primary" href="#projects">Explore featured work <ArrowDownRight size={17} /></a><a className="button button-quiet" href="#contact">Contact me <ArrowUpRight size={17} /></a><a className="button button-cv" href={cvUrl} target="_blank" rel="noopener noreferrer">See CV <ArrowUpRight size={17} /></a></div></div></section>
+
+    <section id="projects" className="section-pad section-block"><div className="section-heading"><div><p className="eyebrow">Selected work</p><h2>Featured <em>Projects.</em></h2></div><p className="section-note">Two practical systems where thoughtful interfaces meet reliable infrastructure.</p></div><div className="projects-stack">{projects.map((project) => { const Icon = project.icon; return <a className="project-card" href={project.href} target="_blank" rel="noreferrer" key={project.title}><div className="project-image"><Image src={project.image} alt={`${project.title} interface preview`} fill sizes="(max-width: 768px) 100vw, 1100px" /><span className="image-label"><Icon size={15} /> live build</span><span className="project-arrow"><ExternalLink size={18} /></span></div><div className="project-content"><div><p className="eyebrow">{project.eyebrow}</p><h3>{project.title}</h3><p className="project-description">{project.description}</p></div><div className="project-side"><span>Open project <ArrowUpRight size={17} /></span><div className="tag-row">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></div></div></a> })}</div></section>
+
+    <section id="skills" className="section-pad section-block"><div className="section-heading"><div><p className="eyebrow">Toolkit</p><h2>Technical <em>Stack.</em></h2></div><p className="section-note">Tools I use to take an idea from first component to final deployment.</p></div><div className="skills-grid">{skills.map((skill) => { const Icon = skill.icon; return <article className="skill-card" key={skill.title}><Icon size={22} /><h3>{skill.title}</h3><div className="skill-items">{skill.items.map((item) => <span key={item}>{item}</span>)}</div></article> })}</div></section>
+
+    <section id="education" className="section-pad section-block"><div className="section-heading"><div><p className="eyebrow">The path so far</p><h2>Always <em>in progress.</em></h2></div></div><div className="education-grid"><div className="timeline"><div className="timeline-item"><span>2025 — Present</span><div><h3>Software Engineering Degree</h3><p>Universidad APEC</p></div></div><div className="timeline-item"><span>2024</span><div><h3>Full Stack Web Development</h3><p>Talento Digital</p></div></div><div className="timeline-item"><span>2024</span><div><h3>Frontend Development Certification</h3><p>Coursera</p></div></div></div><div className="qualifications"><p className="eyebrow">Languages</p><p>Spanish <strong>Native</strong></p><p>English <strong>Intermediate — Advanced</strong></p><p className="eyebrow qualification-label">Soft skills</p><p>Fast learner · Teamwork · Adaptability · Problem-solving</p><a className="button button-cv education-cv" href={cvUrl} target="_blank" rel="noopener noreferrer">Ver CV Completo (PDF) <ArrowUpRight size={16} /></a></div></div></section>
+
+    <section id="contact" className="section-pad contact-section"><div className="contact-copy"><p className="eyebrow">Open channel</p><h2>Have a good idea?<br /><em>Let&apos;s make it real.</em></h2><p>I&apos;m open to thoughtful collaborations, interesting products, and good conversations about the web.</p><div className="contact-links"><a href="https://wa.me/18494697018" target="_blank" rel="noreferrer"><MessageCircle size={17} /> WhatsApp</a><a href="mailto:pmax70690@gmail.com"><Mail size={17} /> Email</a><a href="https://github.com/maxwellb0809" target="_blank" rel="noreferrer"><GitBranch size={17} /> GitHub / maxwellb0809</a><a href="https://www.linkedin.com/in/max-perez-26193b239" target="_blank" rel="noreferrer"><Link size={17} /> LinkedIn / Max Perez</a></div></div><form className="contact-form" action="https://formspree.io/f/moearezj" method="POST"><label>Name<input required name="name" placeholder="Your name" /></label><label>Email<input required type="email" name="email" placeholder="you@email.com" /></label><label>Message<textarea required name="message" placeholder="Tell me a little about your idea..." rows={5} /></label><button className="button button-primary" type="submit">Send message <Send size={16} /></button></form></section>
+    <footer className="site-footer section-pad"><p>© 2026 Maxwell Pérez</p><p>Built with intention, curiosity, and clean code.</p><a href="#home" aria-label="Back to top"><ArrowUpRight size={16} /></a></footer>
+  </main>
+}
